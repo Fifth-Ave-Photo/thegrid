@@ -1,0 +1,145 @@
+/* The Grid Index — Admin Toggle Polish (v1.10.17)
+ *
+ * Loaded on EVERY admin screen. Adds breathing room to ON/OFF pill toggles
+ * used across Grid Index admin UIs (Categories & order, Ticker, Slider,
+ * Theme Options) so the label never crowds the knob.
+ *
+ * Target surface area is intentionally broad: any pill toggle that exposes
+ * its state via [aria-checked], [data-state], [data-checked], a .is-on /
+ * .is-off class, or a .gip-switch / .gip-toggle wrapper.
+ */
+
+/* ── 1. Pill container ───────────────────────────────────────────────── */
+.gip-switch,
+.gip-toggle,
+.gip-pill-toggle,
+[data-gip-toggle],
+.wp-admin [role="switch"].gip-switch,
+.wp-admin .gridindex-toggle {
+  --gip-switch-h: 28px;
+  --gip-switch-pad-x: 14px;            /* ← key fix: more horizontal padding   */
+  --gip-switch-gap: 12px;              /* ← gap between knob and label text    */
+  --gip-switch-knob: 22px;
+  --gip-switch-radius: 999px;
+  --gip-switch-bg-off: #e5e7eb;
+  --gip-switch-bg-on:  #2563eb;
+  --gip-switch-fg:     #111827;
+  --gip-switch-fg-on:  #ffffff;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: var(--gip-switch-gap) !important;
+  height: var(--gip-switch-h) !important;
+  min-width: 78px !important;          /* ← fits "OFF"/"ON" without clipping   */
+  padding: 0 var(--gip-switch-pad-x) 0 calc(var(--gip-switch-knob) + 10px) !important;
+  border-radius: var(--gip-switch-radius) !important;
+  background: var(--gip-switch-bg-off) !important;
+  color: var(--gip-switch-fg) !important;
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  border: 0;
+  transition: background-color .18s ease, color .18s ease;
+}
+
+/* ── 2. Knob ─────────────────────────────────────────────────────────── */
+.gip-switch::before,
+.gip-toggle::before,
+.gip-pill-toggle::before,
+[data-gip-toggle]::before,
+.wp-admin .gridindex-toggle::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: var(--gip-switch-knob);
+  height: var(--gip-switch-knob);
+  border-radius: 999px;
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(0,0,0,.18), 0 0 0 1px rgba(0,0,0,.04);
+  transform: translateY(-50%);
+  transition: left .18s ease, background-color .18s ease;
+}
+
+/* ── 3. ON state (multiple signal sources for cross-plugin coverage) ── */
+.gip-switch[aria-checked="true"],
+.gip-switch[data-state="checked"],
+.gip-switch[data-checked="true"],
+.gip-switch.is-on,
+.gip-toggle[aria-checked="true"],
+.gip-toggle[data-state="checked"],
+.gip-toggle.is-on,
+.gip-pill-toggle[aria-checked="true"],
+.gip-pill-toggle.is-on,
+[data-gip-toggle][aria-checked="true"],
+[data-gip-toggle][data-state="checked"],
+.wp-admin .gridindex-toggle.is-on {
+  background: var(--gip-switch-bg-on) !important;
+  color: var(--gip-switch-fg-on) !important;
+  /* swap padding so knob sits on the right and label has room on the left  */
+  padding: 0 calc(var(--gip-switch-knob) + 10px) 0 var(--gip-switch-pad-x) !important;
+}
+
+.gip-switch[aria-checked="true"]::before,
+.gip-switch[data-state="checked"]::before,
+.gip-switch[data-checked="true"]::before,
+.gip-switch.is-on::before,
+.gip-toggle[aria-checked="true"]::before,
+.gip-toggle[data-state="checked"]::before,
+.gip-toggle.is-on::before,
+.gip-pill-toggle[aria-checked="true"]::before,
+.gip-pill-toggle.is-on::before,
+[data-gip-toggle][aria-checked="true"]::before,
+[data-gip-toggle][data-state="checked"]::before,
+.wp-admin .gridindex-toggle.is-on::before {
+  left: calc(100% - var(--gip-switch-knob) - 3px);
+}
+
+/* ── 4. Inner label spans (when markup wraps the text) ───────────────── */
+.gip-switch__label,
+.gip-toggle__label,
+.gridindex-toggle__label,
+[data-gip-toggle] > span {
+  padding: 0 4px !important;           /* ← extra spacing inside the pill      */
+  letter-spacing: 0.1em !important;
+  white-space: nowrap;
+}
+
+/* ── 5. Focus ring (a11y) ────────────────────────────────────────────── */
+.gip-switch:focus-visible,
+.gip-toggle:focus-visible,
+.gip-pill-toggle:focus-visible,
+[data-gip-toggle]:focus-visible,
+.wp-admin .gridindex-toggle:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* ── 6. Disabled / "0 posts" state ───────────────────────────────────── */
+.gip-switch[aria-disabled="true"],
+.gip-toggle[aria-disabled="true"],
+.gip-switch:disabled,
+.gip-toggle:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* ── 7. Row layout (Categories & order rows) ─────────────────────────── */
+.gridindex-cat-row,
+.gip-cat-row {
+  display: grid;
+  grid-template-columns: 24px auto 1fr 280px;
+  align-items: center;
+  gap: 16px;                           /* ← spacing between toggle, label,    */
+  padding: 14px 16px;                  /*    slug pill, and override input    */
+}
+
+.gridindex-cat-row .gip-switch + .gip-cat-name,
+.gip-cat-row       .gip-switch + .gip-cat-name {
+  margin-left: 4px;                    /* ← extra breathing room after pill   */
+}
