@@ -1,0 +1,19 @@
+/* Grid Index — Block editor styling */
+.wp-block[data-type^="grid-index/"] .gi-block-edit {
+	border: 1px dashed rgba(94, 234, 212, .3);
+	border-radius: 8px;
+	padding: 6px;
+	background: rgba(15, 23, 42, .04);
+	min-height: 80px;
+}
+.wp-block[data-type^="grid-index/"] .gi-block-edit__placeholder {
+	padding: 30px;
+	text-align: center;
+	color: #64748b;
+	font-family: ui-monospace, monospace;
+	font-size: 12px;
+}
+/* Block list label tone */
+.editor-block-list-item-grid-index .block-editor-block-types-list__item-icon {
+	color: #14b8a6;
+}
