@@ -1,0 +1,114 @@
+/*
+Theme Name: The Grid Index
+Theme URI: https://thegridindex.com
+Author: Fifth Avenue Photographic
+Description: Premium editorial, news, and magazine theme for WordPress. Bloomberg/Semafor-inspired layout with full site editing, dark mode, accessible typography, and an in-admin Knowledge Base. Includes Layout Builder, Breaking News Ticker, Featured Slider, and a system-font typography stack with Inter and Source Serif 4 preferred families.
+Version: 1.10.75
+Requires at least: 6.4
+Tested up to: 6.8
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: the-grid-index
+Tags: news, blog, block-styles, block-patterns, wide-blocks, accessibility-ready, translation-ready, custom-logo, custom-menu, featured-images, threaded-comments, rtl-language-support
+*/
+
+/* The bulk of the theme's design ships in assets/css/gridindex.css.
+   This file holds the required header above plus core WordPress
+   content classes that posts and the editor depend on. */
+
+:root {
+	--gip-font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+	--gip-font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+}
+
+body { font-family: var(--gip-font-sans); }
+h1, h2, h3, .wp-block-post-title, .wp-block-site-title { font-family: var(--gip-font-serif); letter-spacing: -0.01em; }
+
+/* Skip link */
+.skip-link { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.skip-link:focus { position: fixed; left: 1rem; top: 1rem; width: auto; height: auto; padding: .75rem 1rem; background: #fff; color: #000; z-index: 100000; }
+
+/* Screen-reader-text — visually hidden but readable by assistive tech */
+.screen-reader-text {
+	border: 0;
+	clip: rect(1px, 1px, 1px, 1px);
+	clip-path: inset(50%);
+	height: 1px;
+	margin: -1px;
+	overflow: hidden;
+	padding: 0;
+	position: absolute !important;
+	width: 1px;
+	word-wrap: normal !important;
+}
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, .6);
+	clip: auto !important;
+	clip-path: none;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000;
+}
+
+/* Focus outline */
+:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+/* WordPress core alignment classes — required for content alignment */
+.alignleft   { float: left;  margin: 0.5em 1.5em 1em 0; }
+.alignright  { float: right; margin: 0.5em 0 1em 1.5em; }
+.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+.alignfull   { width: 100%; max-width: 100%; }
+.alignwide   { max-width: 1240px; margin-left: auto; margin-right: auto; }
+
+/* WordPress core caption classes */
+.wp-caption {
+	max-width: 100%;
+	margin: 1em 0;
+	padding: 0;
+}
+.wp-caption img[class*="wp-image-"] {
+	display: block;
+	margin: 0 auto;
+	max-width: 100%;
+	height: auto;
+}
+.wp-caption-text,
+.wp-caption .wp-caption-text {
+	margin: 0.5em 0 0;
+	font-size: 0.9em;
+	color: #6B7280;
+	text-align: center;
+	font-style: italic;
+}
+
+/* Gallery captions */
+.gallery-caption {
+	display: block;
+	margin: 0.5em 0;
+	font-size: 0.9em;
+	color: #6B7280;
+}
+
+/* Sticky posts visual indicator */
+.sticky {
+	border-left: 3px solid #14B8A6;
+	padding-left: 1rem;
+}
+
+/* Bypost-author author marker */
+.bypostauthor > .comment-body {
+	border-left: 3px solid #14B8A6;
+	padding-left: 1rem;
+}
